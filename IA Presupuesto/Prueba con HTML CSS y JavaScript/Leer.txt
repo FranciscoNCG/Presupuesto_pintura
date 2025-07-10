@@ -1,0 +1,9 @@
+presupuesto-pintura/
+│
+├── index.html         ← El archivo principal con estructura básica
+├── style.css          ← Todos los estilos separados del HTML
+├── script.js          ← Funciones JS como agregar/calcular/exportar
+├── manifest.json      ← El archivo de configuración del PWA
+├── sw.js              ← Service Worker para funcionalidades offline
+└── img/
+    └── logo.png       ← Tu imagen/logo para la animación

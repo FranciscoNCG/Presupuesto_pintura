@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Presupuesto Pintura M²</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+  <div class="logo-container">
+    <img src="img/logo.png" alt="Logo" class="logo" />
+  </div>
+
+  <div class="container">
+    <h2>Cálculo de Metros Cuadrados</h2>
+    <!-- Botón de modo oscuro eliminado -->
+    <table id="tabla-m2">
+      <thead>
+        <tr>
+          <th>Espacio</th>
+          <th>m²</th>
+          <th>Precio/m²</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <button class="btn" onclick="agregarFila()">Agregar espacio</button>
+    <button class="btn" onclick="calcular()">Calcular M²</button>
+    <button class="btn" onclick="exportarPDF()">Exportar a PDF</button>
+    <h3>Total Cálculo M²: $<span id="total-m2">0</span></h3>
+  </div>
+
+  <script src="script.js"></script>
+    <!-- Script de modo oscuro eliminado -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Presupuesto de Pintura – M²</title>
+  <link rel="manifest" href="manifest.json">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #eaf4ec;
+      margin: 20px;
+      color: #2e7d32;
+    }
+
+    h2, h3 {
+      font-weight: bold;
+      color: #1b5e20;
+      text-align: center;
+    }
+
+    .logo-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+      animation: fadeSlide 1s ease-out;
+    }
+
+    .logo {
+      height: 80px;
+      width: auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      transition: all 0.4s ease;
+      cursor: pointer;
+    }
+
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .logo-sticky {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 999;
+      height: 60px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .container {
+      background-color: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin-top: 20px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    th {
+      background-color: #a5d6a7;
+      color: #1b5e20;
+      padding: 12px;
+      font-weight: bold;
+    }
+
+    td {
+      border: 1px solid #c8e6c9;
+      padding: 10px;
+      background-color: #f1f8e9;
+    }
+
+    input[type="number"], input[type="text"] {
+      width: 90%;
+      padding: 6px;
+      border-radius: 8px;
+      border: 1px solid #aed581;
+      font-weight: bold;
+    }
+
+    .btn {
+      background-color: #66bb6a;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 16px;
+      margin: 10px 5px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    }
+
+    .btn:hover {
+      background-color: #4caf50;
+    }
+
+    /* 🌙 Modo oscuro automático */
+    @media (prefers-color-scheme: dark) {
+      body {
+        background-color: #121212;
+        color: #d1ffd1;
+      }
+
+      h2, h3 {
+        color: #c8e6c9;
+      }
+
+      .container {
+        background-color: #1e1e1e;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+      }
+
+      th {
+        background-color: #388e3c;
+        color: #ffffff;
+      }
+
+      td {
+        background-color: #263326;
+        border-color: #4caf50;
+        color: #dcedc8;
+      }
+
+      input[type="number"], input[type="text"] {
+        background-color: #1e1e1e;
+        color: #ffffff;
+        border: 1px solid #4caf50;
+      }
+
+      .btn {
+        background-color: #4caf50;
+        box-shadow: 0 3px 6px rgba(255,255,255,0.1);
+      }
+
+      .btn:hover {
+        background-color: #66bb6a;
+      }
+
+      .logo {
+        box-shadow: 0 4px 6px rgba(255,255,255,0.2);
+      }
+
+      .logo-sticky {
+        box-shadow: 0 2px 4px rgba(255,255,255,0.2);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Logo animado -->
+  <div class="logo-container">
+    <img src="logo.png" alt="Logo" class="logo" />
+  </div>
+
+  <div class="container">
+    <h2>Cálculo de Metros Cuadrados</h2>
+
+    <table id="tabla-m2">
+      <thead>
+        <tr>
+          <th>Espacio</th>
+          <th>m²</th>
+          <th>Precio/m²</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <button class="btn" onclick="agregarFilaM2()">Agregar espacio</button>
+    <button class="btn" onclick="calcularM2()">Calcular M²</button>
+    <button class="btn" onclick="exportarPDF()">Exportar a PDF</button>
+
+    <h3>Total Cálculo M²: $<span id="total-m2">0</span></h3>
+  </div>
+
+  <!-- Service Worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').then(reg => {
+        console.log('Service Worker registrado:', reg.scope);
+      });
+    }
+  </script>
+
+  <!-- html2pdf.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <!-- JS principal -->
+  <script>
+    const tbody = document.querySelector('#tabla-m2 tbody');
+    const logo = document.querySelector('.logo');
+    const triggerPoint = 150;
+
+    window.addEventListener('scroll', () => {
+      logo.classList.toggle('logo-sticky', window.scrollY > triggerPoint);
+    });
+
+    logo.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    function agregarFilaM2(espacio = '', m2 = '', precio = '', subtotal = '0') {
+      const fila = document.createElement('tr');
+      fila.innerHTML = `
+        <td><input type="text" value="${espacio}" placeholder="Ej. Cocina" /></td>
+        <td><input type="number" class="m2" value="${m2}" /></td>
+        <td><input type="number" class="precio-m2" value="${precio}" /></td>
+        <td class="subtotal-m2">${subtotal}</td>
+      `;
+      tbody.appendChild(fila);
+    }
+
+    function calcularM2() {
+      let total = 0;
+      const datos = [];
+      document.querySelectorAll('#tabla-m2 tbody tr').forEach(row => {
+        const espacio = row.querySelector('input[type="text"]').value;
+        const m2 = parseFloat(row.querySelector('.m2').value) || 0;
+        const precio = parseFloat(row.querySelector('.precio-m2').value) || 0;
+        const sub = m2 * precio;
+        row.querySelector('.subtotal-m2').textContent = sub.toFixed(2);
+        total += sub;
+        datos.push({ espacio, m2, precio, subtotal: sub.toFixed(2) });
+      });
+      document.getElementById('total-m2').textContent = total.toFixed(2);
+      localStorage.setItem('presupuesto', JSON.stringify(datos));
+    }
+
+    function recuperarPresupuesto() {
+      const guardado = JSON.parse(localStorage.getItem('presupuesto'));
+      if (guardado) {
+        guardado.forEach(fila => {
+          agregarFilaM2(fila.espacio, fila.m2, fila.precio, fila.subtotal);
+        });
+      } else {
+        agregarFilaM2();
+      }
+    }
+
+    function exportarPDF() {
+      const elemento = document.querySelector('.container');
+      const opciones = {
+        margin: 0.5,
+        filename: 'presupuesto-pintura.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+      };
+      html2pdf().set(opciones).from(elemento).save();
+    }
+
+    window.onload = recuperarPresupuesto;
+  </script>
+</body>
+</html>
