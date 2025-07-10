@@ -67,21 +67,24 @@
     <div style="margin-top:32px;font-size:13px;color:#888;text-align:center;">Presupuesto generado automáticamente - FranciscoNCG</div>
   </div>
 
-  <!-- Modal para datos del cliente -->
-  <div id="modal-datos" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.5);z-index:9999;align-items:center;justify-content:center;">
-    <form id="form-datos" style="background:#fff;padding:32px 24px;border-radius:12px;min-width:320px;max-width:90vw;box-shadow:0 2px 16px #0002;display:flex;flex-direction:column;gap:12px;">
-      <h3 style="margin-top:0;margin-bottom:8px;color:#388e3c;">Datos del cliente</h3>
-      <label>Nombre:<input type="text" id="input-cliente" required></label>
-      <label>Dirección:<input type="text" id="input-direccion" required></label>
-      <label>Teléfono:<input type="text" id="input-telefono" required></label>
-      <label>Email:<input type="email" id="input-email" required></label>
-      <label>Observaciones:<input type="text" id="input-obs"></label>
-      <div style="display:flex;gap:12px;justify-content:flex-end;margin-top:8px;">
-        <button type="button" id="cancelar-datos" style="background:#bbb;">Cancelar</button>
-        <button type="submit" style="background:#388e3c;color:#fff;">Continuar</button>
-      </div>
-    </form>
-  </div>
+  <!-- Datos del cliente en la página principal -->
+  <form id="form-datos" style="background:#eaf4ec;padding:16px 16px 0 16px;border-radius:12px;max-width:600px;margin:0 auto 16px auto;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:flex-end;">
+    <div style="flex:1 1 220px;min-width:180px;">
+      <label>Nombre:<br><input type="text" id="input-cliente" required style="width:100%"></label>
+    </div>
+    <div style="flex:1 1 220px;min-width:180px;">
+      <label>Dirección:<br><input type="text" id="input-direccion" required style="width:100%"></label>
+    </div>
+    <div style="flex:1 1 140px;min-width:120px;">
+      <label>Teléfono:<br><input type="text" id="input-telefono" required style="width:100%"></label>
+    </div>
+    <div style="flex:1 1 180px;min-width:140px;">
+      <label>Email:<br><input type="email" id="input-email" required style="width:100%"></label>
+    </div>
+    <div style="flex:2 1 100%;min-width:180px;">
+      <label>Observaciones:<br><input type="text" id="input-obs" style="width:100%"></label>
+    </div>
+  </form>
   <script src="script.js"></script>
     <!-- Script de modo oscuro eliminado -->
   <script>
