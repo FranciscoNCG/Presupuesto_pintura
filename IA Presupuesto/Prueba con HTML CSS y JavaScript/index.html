@@ -1,20 +1,37 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Presupuesto Pintura M²</title>
-  <link rel="manifest" href="manifest.json" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
   <div class="logo-container">
-    <img src="img/logo.png" alt="Logo" class="logo" />
+    <img src="img/logo.png" alt="Logo" class="logo">
   </div>
+
+  <form id="form-datos" style="background:#eaf4ec;padding:16px 16px 0 16px;border-radius:12px;max-width:600px;margin:0 auto 16px auto;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:flex-end;">
+    <div style="flex:1 1 220px;min-width:180px;">
+      <label>Nombre:<br><input type="text" id="input-cliente" required style="width:100%"></label>
+    </div>
+    <div style="flex:1 1 220px;min-width:180px;">
+      <label>Dirección:<br><input type="text" id="input-direccion" required style="width:100%"></label>
+    </div>
+    <div style="flex:1 1 140px;min-width:120px;">
+      <label>Teléfono:<br><input type="text" id="input-telefono" required style="width:100%"></label>
+    </div>
+    <div style="flex:1 1 180px;min-width:140px;">
+      <label>Email:<br><input type="email" id="input-email" required style="width:100%"></label>
+    </div>
+    <div style="flex:2 1 100%;min-width:180px;">
+      <label>Observaciones:<br><input type="text" id="input-obs" style="width:100%"></label>
+    </div>
+  </form>
 
   <div class="container">
     <h2>Cálculo de Metros Cuadrados</h2>
-    <!-- Botón de modo oscuro eliminado -->
     <table id="tabla-m2">
       <thead>
         <tr>
@@ -26,14 +43,12 @@
       </thead>
       <tbody></tbody>
     </table>
-
     <button class="btn" onclick="agregarFila()">Agregar espacio</button>
     <button class="btn" onclick="calcular()">Calcular M²</button>
     <button class="btn" onclick="exportarPDF()">Exportar a PDF</button>
     <h3>Total Cálculo M²: $<span id="total-m2">0</span></h3>
   </div>
 
-  <!-- Plantilla HTML profesional para PDF (oculta) -->
   <div id="plantilla-factura" style="position:absolute; left:-9999px; top:0; width:800px; background:#fff; border:2px solid #388e3c; border-radius:16px; padding:32px; font-family:sans-serif; color:#222; z-index:-1;">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
       <img src="img/logo.png" alt="Logo" style="height:70px;">
@@ -67,26 +82,7 @@
     <div style="margin-top:32px;font-size:13px;color:#888;text-align:center;">Presupuesto generado automáticamente - FranciscoNCG</div>
   </div>
 
-  <!-- Datos del cliente en la página principal -->
-  <form id="form-datos" style="background:#eaf4ec;padding:16px 16px 0 16px;border-radius:12px;max-width:600px;margin:0 auto 16px auto;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:flex-end;">
-    <div style="flex:1 1 220px;min-width:180px;">
-      <label>Nombre:<br><input type="text" id="input-cliente" required style="width:100%"></label>
-    </div>
-    <div style="flex:1 1 220px;min-width:180px;">
-      <label>Dirección:<br><input type="text" id="input-direccion" required style="width:100%"></label>
-    </div>
-    <div style="flex:1 1 140px;min-width:120px;">
-      <label>Teléfono:<br><input type="text" id="input-telefono" required style="width:100%"></label>
-    </div>
-    <div style="flex:1 1 180px;min-width:140px;">
-      <label>Email:<br><input type="email" id="input-email" required style="width:100%"></label>
-    </div>
-    <div style="flex:2 1 100%;min-width:180px;">
-      <label>Observaciones:<br><input type="text" id="input-obs" style="width:100%"></label>
-    </div>
-  </form>
   <script src="script.js"></script>
-    <!-- Script de modo oscuro eliminado -->
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('sw.js');
