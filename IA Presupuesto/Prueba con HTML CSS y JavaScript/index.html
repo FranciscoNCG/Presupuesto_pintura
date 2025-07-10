@@ -33,6 +33,55 @@
     <h3>Total Cálculo M²: $<span id="total-m2">0</span></h3>
   </div>
 
+  <!-- Plantilla HTML profesional para PDF (oculta) -->
+  <div id="plantilla-factura" style="position:absolute; left:-9999px; top:0; width:800px; background:#fff; border:2px solid #388e3c; border-radius:16px; padding:32px; font-family:sans-serif; color:#222; z-index:-1;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
+      <img src="img/logo.png" alt="Logo" style="height:70px;">
+      <div style="text-align:right;">
+        <h2 style="margin:0;color:#388e3c;">Presupuesto Profesional</h2>
+        <div style="font-size:16px;">N° <span id="nro-presupuesto">0001</span></div>
+        <div style="font-size:14px;">Fecha: <span id="fecha-presupuesto"></span></div>
+      </div>
+    </div>
+    <div style="margin-bottom:16px;">
+      <strong>Cliente:</strong> <span id="cliente-presupuesto">________________________</span><br>
+      <strong>Dirección:</strong> <span id="direccion-presupuesto">________________________</span><br>
+      <strong>Teléfono:</strong> <span id="telefono-presupuesto">________________________</span><br>
+      <strong>Email:</strong> <span id="email-presupuesto">________________________</span><br>
+      <strong>Observaciones:</strong> <span id="obs-presupuesto">________________________</span>
+    </div>
+    <table style="width:100%;border-collapse:collapse; font-size:16px;">
+      <thead>
+        <tr style="background:#eaf4ec;">
+          <th style="border:1px solid #ccc;padding:6px;">Espacio</th>
+          <th style="border:1px solid #ccc;padding:6px;">m²</th>
+          <th style="border:1px solid #ccc;padding:6px;">Precio/m²</th>
+          <th style="border:1px solid #ccc;padding:6px;">Subtotal</th>
+        </tr>
+      </thead>
+      <tbody id="tabla-factura"></tbody>
+    </table>
+    <div style="margin-top:24px;font-size:20px;text-align:right;">
+      <strong>Total: $<span id="total-factura">0</span></strong>
+    </div>
+    <div style="margin-top:32px;font-size:13px;color:#888;text-align:center;">Presupuesto generado automáticamente - FranciscoNCG</div>
+  </div>
+
+  <!-- Modal para datos del cliente -->
+  <div id="modal-datos" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.5);z-index:9999;align-items:center;justify-content:center;">
+    <form id="form-datos" style="background:#fff;padding:32px 24px;border-radius:12px;min-width:320px;max-width:90vw;box-shadow:0 2px 16px #0002;display:flex;flex-direction:column;gap:12px;">
+      <h3 style="margin-top:0;margin-bottom:8px;color:#388e3c;">Datos del cliente</h3>
+      <label>Nombre:<input type="text" id="input-cliente" required></label>
+      <label>Dirección:<input type="text" id="input-direccion" required></label>
+      <label>Teléfono:<input type="text" id="input-telefono" required></label>
+      <label>Email:<input type="email" id="input-email" required></label>
+      <label>Observaciones:<input type="text" id="input-obs"></label>
+      <div style="display:flex;gap:12px;justify-content:flex-end;margin-top:8px;">
+        <button type="button" id="cancelar-datos" style="background:#bbb;">Cancelar</button>
+        <button type="submit" style="background:#388e3c;color:#fff;">Continuar</button>
+      </div>
+    </form>
+  </div>
   <script src="script.js"></script>
     <!-- Script de modo oscuro eliminado -->
   <script>
