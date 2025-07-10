@@ -41,25 +41,26 @@ function exportarPDF() {
   document.getElementById('obs-presupuesto').textContent = obs || '________________________';
   document.getElementById('tabla-factura').innerHTML = filas;
   document.getElementById('total-factura').textContent = total;
-  plantilla.style.display = 'block';
-
-  html2pdf().set({
-    margin: 0,
-    filename: `presupuesto-${nro.toString().padStart(4, '0')}.pdf`,
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2 },
-    jsPDF: { unit: 'px', format: [800, 1131], orientation: 'portrait' }
-  }).from(plantilla).save().then(() => {
-    plantilla.style.display = 'none';
-    // Limpiar campos para la próxima vez
-    document.getElementById('cliente-presupuesto').textContent = '________________________';
-    document.getElementById('direccion-presupuesto').textContent = '________________________';
-    document.getElementById('telefono-presupuesto').textContent = '________________________';
-    document.getElementById('email-presupuesto').textContent = '________________________';
-    document.getElementById('obs-presupuesto').textContent = '________________________';
-    document.getElementById('tabla-factura').innerHTML = '';
-    document.getElementById('total-factura').textContent = '0';
-    // Limpiar formulario
-    document.getElementById('form-datos').reset();
-  });
+  plantilla.style.visibility = 'visible';
+  setTimeout(() => {
+    html2pdf().set({
+      margin: 0,
+      filename: `presupuesto-${nro.toString().padStart(4, '0')}.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'px', format: [800, 1131], orientation: 'portrait' }
+    }).from(plantilla).save().then(() => {
+      plantilla.style.visibility = 'hidden';
+      // Limpiar campos para la próxima vez
+      document.getElementById('cliente-presupuesto').textContent = '________________________';
+      document.getElementById('direccion-presupuesto').textContent = '________________________';
+      document.getElementById('telefono-presupuesto').textContent = '________________________';
+      document.getElementById('email-presupuesto').textContent = '________________________';
+      document.getElementById('obs-presupuesto').textContent = '________________________';
+      document.getElementById('tabla-factura').innerHTML = '';
+      document.getElementById('total-factura').textContent = '0';
+      // Limpiar formulario
+      document.getElementById('form-datos').reset();
+    });
+  }, 100);
 }
