@@ -3,22 +3,140 @@ body, input, .btn {
   font-family: sans-serif;
   border-radius: 8px;
   font-weight: bold;
+  transition: box-shadow 0.2s, background 0.2s, border 0.2s;
 }
 body {
   background: #eaf4ec;
   margin: 20px;
   color: #2e7d32;
 }
-h2, h3 { text-align: center; color: #1b5e20; }
-table { width: 100%; margin-top: 20px; border-collapse: collapse; box-shadow: 0 2px 6px #ccc; }
-th, td { padding: 10px; border: 1px solid #c8e6c9; }
-th { background: #a5d6a7; color: #1b5e20; }
-td { background: #f1f8e9; }
-input { width: 90%; padding: 6px; border: 1px solid #aed581; }
-.btn { background: #66bb6a; color: #fff; padding: 10px 16px; margin: 10px 5px; cursor: pointer; box-shadow: 0 3px 6px #aaa; }
-.btn:hover { background: #4caf50; }
-.container { max-width: 800px; margin: auto; padding: 30px; background: #fff; border-radius: 20px; box-shadow: 0 6px 12px #ccc; }
-.logo-container { display: flex; justify-content: center; margin-bottom: 20px; animation: fadeSlide 1s ease-out; }
-.logo { height: 80px; cursor: pointer; border-radius: 12px; box-shadow: 0 4px 6px #888; }
-.logo-sticky { position: fixed; top: 20px; left: 20px; height: 60px; z-index: 999; box-shadow: 0 2px 4px #666; }
-@keyframes fadeSlide { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+h2, h3 {
+  text-align: center;
+  color: #1b5e20;
+}
+table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+  box-shadow: 0 4px 16px #b2dfdb99;
+  border-radius: 12px;
+  overflow: hidden;
+}
+th, td {
+  padding: 12px;
+  border: 1px solid #c8e6c9;
+}
+th {
+  background: #a5d6a7;
+  color: #1b5e20;
+}
+td {
+  background: #f1f8e9;
+  transition: background 0.2s;
+}
+tbody tr:hover td {
+  background: #e0f2f1;
+}
+input {
+  width: 90%;
+  padding: 8px;
+  border: 1.5px solid #aed581;
+  outline: none;
+  background: #fff;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+input:focus {
+  border: 2px solid #388e3c;
+  box-shadow: 0 0 0 2px #a5d6a7;
+  background: #f1f8e9;
+}
+.btn {
+  background: #66bb6a;
+  color: #fff;
+  padding: 12px 20px;
+  margin: 10px 5px;
+  cursor: pointer;
+  box-shadow: 0 3px 12px #b2dfdb99;
+  border: none;
+  font-size: 1rem;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+}
+.btn:hover, .btn:focus {
+  background: #4caf50;
+  box-shadow: 0 6px 16px #81c78499;
+  transform: translateY(-2px) scale(1.03);
+}
+.container {
+  max-width: 800px;
+  margin: auto;
+  padding: 32px 18px;
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 8px 32px #b2dfdb99;
+}
+.logo-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+  animation: fadeSlide 1s ease-out;
+}
+.logo {
+  height: 80px;
+  cursor: pointer;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px #81c78499;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.logo:hover {
+  box-shadow: 0 8px 24px #388e3c55;
+  transform: scale(1.05);
+}
+.logo-sticky {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  height: 60px;
+  z-index: 999;
+  box-shadow: 0 2px 8px #388e3c55;
+}
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mejor contraste para fieldset y formularios */
+form, fieldset {
+  background: #f8fffa;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px #b2dfdb33;
+  border: 1.5px solid #b2dfdb;
+}
+legend {
+  font-size: 1.1em;
+  padding: 0 8px;
+}
+
+/* Mejoras de accesibilidad para focus */
+input:focus, .btn:focus {
+  outline: 2px solid #388e3c;
+  outline-offset: 2px;
+}
+
+/* Responsive: se adapta a pantallas pequeñas */
+@media (max-width: 600px) {
+  .container {
+    padding: 10px 2px;
+    border-radius: 10px;
+  }
+  table, th, td {
+    font-size: 0.95em;
+    padding: 6px;
+  }
+  .btn {
+    padding: 10px 8px;
+    font-size: 0.95em;
+  }
+  .logo {
+    height: 50px;
+  }
+}

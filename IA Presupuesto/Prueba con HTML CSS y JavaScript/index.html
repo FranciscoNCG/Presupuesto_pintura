@@ -3,35 +3,67 @@
 <head>
   <meta charset="UTF-8">
   <title>Presupuesto Pintura M²</title>
-  <link rel="manifest" href="manifest.json">
+  <!-- Estilos principales -->
   <link rel="stylesheet" href="style.css">
+  <!-- Librería para exportar a PDF -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
+  <!-- Logo de la empresa o app -->
   <div class="logo-container">
     <img src="img/logo.png" alt="Logo" class="logo">
   </div>
 
-  <form id="form-datos" style="background:#eaf4ec;padding:16px 16px 0 16px;border-radius:12px;max-width:600px;margin:0 auto 16px auto;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:flex-end;">
-    <div style="flex:1 1 220px;min-width:180px;">
-      <label>Nombre:<br><input type="text" id="input-cliente" required style="width:100%"></label>
-    </div>
-    <div style="flex:1 1 220px;min-width:180px;">
-      <label>Dirección:<br><input type="text" id="input-direccion" required style="width:100%"></label>
-    </div>
-    <div style="flex:1 1 140px;min-width:120px;">
-      <label>Teléfono:<br><input type="text" id="input-telefono" required style="width:100%"></label>
-    </div>
-    <div style="flex:1 1 180px;min-width:140px;">
-      <label>Email:<br><input type="email" id="input-email" required style="width:100%"></label>
-    </div>
-    <div style="flex:2 1 100%;min-width:180px;">
-      <label>Observaciones:<br><input type="text" id="input-obs" style="width:100%"></label>
-    </div>
+  <!-- Formulario para ingresar los datos del cliente y del presupuesto -->
+  <form id="form-datos" style="background:#eaf4ec;padding:16px 16px 0 16px;border-radius:12px;max-width:900px;margin:0 auto 16px auto;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:flex-end;">
+    <!-- ===================== DATOS DEL PRESUPUESTO ===================== -->
+    <fieldset style="flex:2 1 100%;border:1px solid #b2dfdb;padding:10px 16px;margin-bottom:10px;border-radius:8px;">
+      <legend style="color:#388e3c;font-weight:bold;">Datos del presupuesto</legend>
+      <div style="display:flex;flex-wrap:wrap;gap:12px 24px;">
+        <div style="flex:1 1 220px;min-width:180px;">
+          <label>Obra / Proyecto:<br><input type="text" id="input-obra" style="width:100%"></label>
+        </div>
+        <div style="flex:1 1 180px;min-width:140px;">
+          <label>Fecha de inicio:<br><input type="date" id="input-inicio" style="width:100%"></label>
+        </div>
+        <div style="flex:1 1 180px;min-width:140px;">
+          <label>Fecha de entrega:<br><input type="date" id="input-entrega" style="width:100%"></label>
+        </div>
+        <div style="flex:1 1 180px;min-width:140px;">
+          <label>Validez del presupuesto:<br><input type="text" id="input-validez" placeholder="Ej: 30 días" style="width:100%"></label>
+        </div>
+        <div style="flex:1 1 180px;min-width:140px;">
+          <label>Forma de pago:<br><input type="text" id="input-pago" style="width:100%"></label>
+        </div>
+      </div>
+    </fieldset>
+    <!-- ===================== DATOS DEL CLIENTE ===================== -->
+    <fieldset style="flex:2 1 100%;border:1px solid #b2dfdb;padding:10px 16px;margin-bottom:10px;border-radius:8px;">
+      <legend style="color:#388e3c;font-weight:bold;">Datos del cliente</legend>
+      <div style="display:flex;flex-wrap:wrap;gap:12px 24px;">
+        <div style="flex:1 1 220px;min-width:180px;">
+          <label>Nombre:<br><input type="text" id="input-cliente" required style="width:100%"></label>
+        </div>
+        <div style="flex:1 1 220px;min-width:180px;">
+          <label>Dirección:<br><input type="text" id="input-direccion" required style="width:100%"></label>
+        </div>
+        <div style="flex:1 1 140px;min-width:120px;">
+          <label>Teléfono:<br><input type="text" id="input-telefono" required style="width:100%"></label>
+        </div>
+        <div style="flex:1 1 180px;min-width:140px;">
+          <label>Email:<br><input type="email" id="input-email" required style="width:100%"></label>
+        </div>
+        <div style="flex:2 1 100%;min-width:180px;">
+          <label>Observaciones:<br><input type="text" id="input-obs" style="width:100%"></label>
+        </div>
+      </div>
+    </fieldset>
   </form>
 
+  <!-- ===================== SECCIÓN PRINCIPAL: CÁLCULO Y TABLA DE PRESUPUESTO ===================== -->
   <div class="container">
     <h2>Cálculo de Metros Cuadrados</h2>
+    <!-- Tabla donde se agregan los espacios a presupuestar -->
     <table id="tabla-m2">
       <thead>
         <tr>
@@ -43,13 +75,23 @@
       </thead>
       <tbody></tbody>
     </table>
+    <!-- Botones de acción -->
     <button class="btn" onclick="agregarFila()">Agregar espacio</button>
     <button class="btn" onclick="calcular()">Calcular M²</button>
     <button class="btn" onclick="exportarPDF()">Exportar a PDF</button>
+    <!-- Botón principal para exportar el presupuesto como PDF profesional -->
+    <!-- Al hacer clic, se rellena la plantilla oculta y se descarga el PDF -->
+    <!-- El botón Exportar a PDF es el único que debe usarse para generar el archivo -->
     <h3>Total Cálculo M²: $<span id="total-m2">0</span></h3>
   </div>
 
-  <div id="plantilla-factura" style="position:fixed; left:0; top:0; width:800px; background:#fff; border:2px solid #388e3c; border-radius:16px; padding:32px; font-family:sans-serif; color:#222; visibility:hidden; z-index:999;">
+  <!-- ===================== PLANTILLA OCULTA PARA EXPORTAR EL PDF PROFESIONAL ===================== -->
+  <!--
+    Esta plantilla se rellena automáticamente con los datos del formulario y la tabla.
+    Es invisible en pantalla, pero se hace visible y se exporta como PDF al pulsar el botón correspondiente.
+    No modificar manualmente los spans ni la tabla, todo se rellena por JS.
+  -->
+  <div id="plantilla-factura" style="position:fixed; left:0; top:0; width:800px; background:#fff; border:2px solid #388e3c; border-radius:16px; padding:32px; font-family:sans-serif; color:#222; opacity:0; pointer-events:none; z-index:999;">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
       <img src="img/logo.png" alt="Logo" style="height:70px;">
       <div style="text-align:right;">
@@ -59,6 +101,11 @@
       </div>
     </div>
     <div style="margin-bottom:16px;">
+      <strong>Obra / Proyecto:</strong> <span id="obra-presupuesto">________________________</span><br>
+      <strong>Fecha de inicio:</strong> <span id="inicio-presupuesto">________________________</span><br>
+      <strong>Fecha de entrega:</strong> <span id="entrega-presupuesto">________________________</span><br>
+      <strong>Validez del presupuesto:</strong> <span id="validez-presupuesto">________________________</span><br>
+      <strong>Forma de pago:</strong> <span id="pago-presupuesto">________________________</span><br>
       <strong>Cliente:</strong> <span id="cliente-presupuesto">________________________</span><br>
       <strong>Dirección:</strong> <span id="direccion-presupuesto">________________________</span><br>
       <strong>Teléfono:</strong> <span id="telefono-presupuesto">________________________</span><br>
@@ -82,11 +129,43 @@
     <div style="margin-top:32px;font-size:13px;color:#888;text-align:center;">Presupuesto generado automáticamente - FranciscoNCG</div>
   </div>
 
+  <!-- ===================== SCRIPTS PRINCIPALES ===================== -->
   <script src="script.js"></script>
   <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js');
-    }
+    // ===================== AUTOCOMPLETADO Y RECORDATORIO DE DATOS =====================
+    // Guarda y sugiere valores previos en los campos principales usando localStorage y datalist
+    const camposRecordar = [
+      'input-cliente','input-direccion','input-telefono','input-email','input-obra','input-validez','input-pago'
+    ];
+    camposRecordar.forEach(id => {
+      const input = document.getElementById(id);
+      if (!input) return;
+      // Autocompletar con valores previos
+      let prevs = JSON.parse(localStorage.getItem('hist_'+id) || '[]');
+      if (prevs.length > 0) {
+        // Si es un input de texto, reemplazarlo por un datalist
+        const listId = id+'-list';
+        if (!document.getElementById(listId)) {
+          const datalist = document.createElement('datalist');
+          datalist.id = listId;
+          prevs.forEach(v => {
+            const opt = document.createElement('option');
+            opt.value = v;
+            datalist.appendChild(opt);
+          });
+          document.body.appendChild(datalist);
+          input.setAttribute('list', listId);
+        }
+      }
+      // Guardar al cambiar
+      input.addEventListener('change', function() {
+        let arr = JSON.parse(localStorage.getItem('hist_'+id) || '[]');
+        if (this.value && !arr.includes(this.value)) {
+          arr.push(this.value);
+          localStorage.setItem('hist_'+id, JSON.stringify(arr));
+        }
+      });
+    });
   </script>
 </body>
 </html>
